@@ -130,7 +130,18 @@ It reads: no two active bookings may have the same room and overlapping time ran
 - Frontend component tests (React Testing Library) and an end-to-end test (Playwright).
 
 ## Time spent
-_Fill in before submitting._
+Roughly **__ hours** in total. Most of it went into design and review rather than typing code:
+
+- **Design (most of the time):** reading the brief, then working out the architecture, the request flows, the database structure and how to prevent double bookings. This is written up as the plan, [HLD](docs/HLD.md) and [LLD](docs/LLD.md). I reviewed each document in full and asked questions wherever something was unclear (for example: why a connection pool, why a shared types package, whether "organiser" needs a separate role).
+- **Iterating on the design:** when I wanted something changed (for example, no Docker for now), I asked for the plan, HLD and LLD to be updated, then reviewed the updated parts before accepting them.
+- **Implementation review:** the code was generated from the agreed LLD. I reviewed it, ran the tests and checked the app manually.
+- **README and final review.**
 
 ## Use of AI
-An AI coding assistant (Claude Code) helped with planning, scaffolding and writing code and tests. I have reviewed every file and can explain and change it.
+I used an AI coding assistant (Claude Code) as a pair programmer:
+
+- **I owned the design decisions.** The assistant drafted the plan, HLD and LLD. I reviewed them, asked questions until each part was clear, and requested changes where I wanted a different approach.
+- **The assistant wrote the code and tests** from the agreed LLD.
+- **I reviewed the result** and verified it by running the test suite and using the app.
+
+The important decisions (database-level overlap prevention, the validation layers, the error format, no roles beyond "organiser") are explained above. I can walk through and change any part of the code.
