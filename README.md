@@ -6,7 +6,7 @@ A small full-stack app for booking the office's 6 meeting rooms: see which rooms
 
 **Office timezone:** all times are **Asia/Kolkata (IST, UTC+5:30)**. They are stored as `timestamptz` (UTC) and always shown in office time, whatever the browser's timezone.
 
-Design docs: [docs/HLD.md](docs/HLD.md) (high level) and [docs/LLD.md](docs/LLD.md) (low level).
+Design docs: [docs/HLD.md](docs/HLD.md) (high level) and [docs/LLD.md](docs/LLD.md) (low level). Test sheet: [docs/TEST_CASES.xlsx](docs/TEST_CASES.xlsx) (70 business test cases, basic and advanced).
 
 ---
 
