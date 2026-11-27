@@ -26,7 +26,10 @@ describe('concurrent booking requests', () => {
       book(token, slot(2, '09:30', '10:30')),
       book(token, slot(2, '09:45', '11:00')),
     ]);
-    const created = results.filter((r) => r.status === 201);
-    expect(created).toHaveLength(1);
+    // Exactly one wins; the others get a clean 409 (not a 500).
+    expect(results.map((r) => r.status).sort()).toEqual([201, 409, 409]);
+
+    const { rows } = await pool.query("SELECT count(*)::int AS n FROM bookings WHERE room_id = 2 AND status = 'active'");
+    expect(rows[0].n).toBe(1);
   });
 });

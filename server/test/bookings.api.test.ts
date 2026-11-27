@@ -98,6 +98,20 @@ describe('bookings API', () => {
       expect(res.status).toBe(200);
       expect(res.body.map((b: { title: string }) => b.title)).toEqual(['Alice meeting']);
     });
+
+    it('leaves out bookings that have already ended', async () => {
+      // The API refuses past bookings, so insert one directly to simulate an old booking.
+      const yesterday = officeDate(-1);
+      await pool.query(
+        `INSERT INTO bookings (room_id, organiser_id, title, start_time, end_time)
+         VALUES (1, 1, 'Old meeting', $1, $2)`,
+        [officeTime(yesterday, '10:00'), officeTime(yesterday, '11:00')],
+      );
+      await book(alice, slot(1, '10:00', '11:00', 'Upcoming meeting'));
+
+      const res = await request(app).get('/api/bookings/mine').set(auth(alice));
+      expect(res.body.map((b: { title: string }) => b.title)).toEqual(['Upcoming meeting']);
+    });
   });
 
   describe('DELETE /api/bookings/:id', () => {
