@@ -130,11 +130,12 @@ It reads: no two active bookings may have the same room and overlapping time ran
 - Frontend component tests (React Testing Library) and an end-to-end test (Playwright).
 
 ## Time spent
-Roughly **__ hours** in total. Most of it went into design and review rather than typing code:
+Roughly **__ hours** in total. Most of it went into design, business logic and code review rather than typing code:
 
 - **Design (most of the time):** reading the brief, then working out the architecture, the request flows, the database structure and how to prevent double bookings. This is written up as the plan, [HLD](docs/HLD.md) and [LLD](docs/LLD.md). I reviewed each document in full and asked questions wherever something was unclear (for example: why a connection pool, why a shared types package, whether "organiser" needs a separate role).
 - **Iterating on the design:** when I wanted something changed (for example, no Docker for now), I asked for the plan, HLD and LLD to be updated, then reviewed the updated parts before accepting them.
-- **Implementation review:** the code was generated from the agreed LLD. I reviewed it, ran the tests and checked the app manually.
+- **Business logic:** working through the booking rules and how each is enforced: no overlaps (database constraint, 409), the 15-minute to 4-hour duration, no bookings in the past, only the organiser can cancel (403), and cancelled bookings freeing the slot. I also worked out which layer checks each rule: client, server or database.
+- **Code review (a large share of the time):** the code was generated from the agreed LLD. I reviewed it file by file, especially the schema, `bookingService` and the error handling, checked it matched the business rules above, ran the tests and checked the app manually.
 - **README and final review.**
 
 ## Use of AI
